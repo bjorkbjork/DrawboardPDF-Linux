@@ -1,7 +1,7 @@
 # DrawboardPDF-Linux
 An Electron wrapper for the Drawboard PDF software.
-
-
+Find AUR page here:
+https://aur.archlinux.org/packages/drawboard-pdf
 
 
 
