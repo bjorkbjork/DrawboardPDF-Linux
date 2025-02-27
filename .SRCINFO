@@ -8,7 +8,8 @@ pkgbase = drawboard-pdf
 	makedepends = npm
 	depends = electron
 	depends = gtk3
-	source = drawboard-pdf-1.0.0.tar.gz
+	options = !debug
+	source = https://github.com/bjorkbjork/DrawboardPDF-Linux/releases/download/v1.0.0/drawboard-pdf-1.0.0.tar.gz
 	sha256sums = SKIP
 
 pkgname = drawboard-pdf
