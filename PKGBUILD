@@ -14,8 +14,7 @@ sha256sums=('SKIP')
 
 build() {
   cd "$srcdir"
-  npm install
-  npm install electron-packager
+  npm ci
   npx electron-packager . "$pkgname" --platform=linux --arch=x64 --icon=assets/icon.png --out=dist/
 }
 
