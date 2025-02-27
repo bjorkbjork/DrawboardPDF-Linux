@@ -1,4 +1,5 @@
-# Maintainer: Your Name <francois@francoisvankempen.com>
+# Maintainer: <francois@francoisvankempen.com>
+options=('!debug')
 pkgname=drawboard-pdf
 pkgver=1.0.0
 pkgrel=1
@@ -7,13 +8,14 @@ arch=('x86_64')
 url=""
 license=('MIT')  # Change if needed
 depends=('electron' 'gtk3')
-makedepends=('nodejs' 'npm' 'electron-packager')
+makedepends=('nodejs' 'npm')
 source=("$pkgname-$pkgver.tar.gz") # Replace with your release source if hosting
 sha256sums=('SKIP')
 
 build() {
   cd "$srcdir"
   npm install
+  npm install electron-packager
   npx electron-packager . "$pkgname" --platform=linux --arch=x64 --icon=assets/icon.png --out=dist/
 }
 

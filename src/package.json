@@ -13,5 +13,8 @@
   "type": "commonjs",
   "devDependencies": {
     "electron": "^34.3.0"
+  },
+  "dependencies": {
+    "electron-packager": "^17.1.2"
   }
 }
