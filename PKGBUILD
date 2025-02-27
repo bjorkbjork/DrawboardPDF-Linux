@@ -9,7 +9,7 @@ url=""
 license=('MIT')  # Change if needed
 depends=('electron' 'gtk3')
 makedepends=('nodejs' 'npm')
-source=("$pkgname-$pkgver.tar.gz") # Replace with your release source if hosting
+source=("https://github.com/bjorkbjork/DrawboardPDF-Linux/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz") # Replace with your release source if hosting
 sha256sums=('SKIP')
 
 build() {
