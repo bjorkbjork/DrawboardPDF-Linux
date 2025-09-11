@@ -2,7 +2,7 @@
 options=('!debug')
 pkgname=drawboard-pdf
 pkgver=1.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Electron wrapper for Drawboard PDF software"
 arch=('x86_64')
 url=""
@@ -18,6 +18,7 @@ build() {
 }
 
 package() {
+  cd "$srcdir/src" 
   install -dm755 "$pkgdir/usr/lib/$pkgname"
 
   cp -r src/* "$pkgdir/usr/lib/$pkgname" 2>/dev/null || cp -r . "$pkgdir/usr/lib/$pkgname"
@@ -33,6 +34,6 @@ EOF
 
   install -Dm644 assets/icon.png "$pkgdir/usr/share/pixmaps/$pkgname.png"
 
-  install -Dm644 "$pkgname.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
+  install -Dm644 "../$pkgname.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
 }
 
