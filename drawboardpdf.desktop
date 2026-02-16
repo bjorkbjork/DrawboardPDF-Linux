@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Drawboard PDF
-Comment=Electron wrapper for Drawboard PDF software
-Exec=drawboard-pdf %U
-Icon=drawboard-pdf
-Terminal=false
-Type=Application
-Categories=Graphics;Education;Utility;
-MimeType=application/pdf;
