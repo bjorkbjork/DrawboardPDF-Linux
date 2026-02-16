@@ -7,11 +7,19 @@ PKGNAME="drawboard-pdf"
 SRC_DIR="$PROJECT_ROOT/src"
 PKGBUILD_PATH="$PROJECT_ROOT/PKGBUILD"
 SRCINFO_PATH="$PROJECT_ROOT/.SRCINFO"
+AUR_DIR="$PROJECT_ROOT/../aur-drawboard-pdf"
 
 # --- Dependency checks ---
-for cmd in sha256sum makepkg jq sed; do
+for cmd in sha256sum makepkg jq sed git; do
     command -v "$cmd" >/dev/null 2>&1 || { echo "Error: $cmd is not installed"; exit 1; }
 done
+
+# --- Check AUR clone exists ---
+if [[ ! -d "$AUR_DIR/.git" ]]; then
+    echo "Error: AUR clone not found at $AUR_DIR"
+    echo "Clone it with: git clone ssh://aur@aur.archlinux.org/drawboard-pdf.git ../aur-drawboard-pdf"
+    exit 1
+fi
 
 # --- Parse arguments ---
 PKGREL=1
@@ -69,17 +77,19 @@ sed -e "s|^source=.*|source=(\"file://${TARBALL_PATH}\")|" \
 (cd "$TMPDIR" && makepkg -f) || { echo "Error: makepkg build failed!"; exit 1; }
 
 echo ""
-echo "=== PKGBUILD updated and build verified ==="
+echo "=== Build verified ==="
+
+# --- Push to AUR ---
+echo "==> Pushing to AUR..."
+cp "$PKGBUILD_PATH" "$AUR_DIR/PKGBUILD"
+cp "$SRCINFO_PATH" "$AUR_DIR/.SRCINFO"
+
+git -C "$AUR_DIR" add PKGBUILD .SRCINFO
+git -C "$AUR_DIR" commit -m "v${VERSION}" || { echo "Nothing to commit — AUR already up to date."; exit 0; }
+git -C "$AUR_DIR" push || { echo "Error: failed to push to AUR!"; exit 1; }
+
+echo ""
+echo "=== Released v${VERSION} to AUR ==="
 echo "  Version:  $VERSION"
 echo "  Pkg Rel:  $PKGREL"
 echo "  SHA256:   $CHECKSUM"
-echo ""
-echo "Files modified:"
-echo "  - PKGBUILD"
-echo "  - .SRCINFO"
-echo ""
-echo "Next steps:"
-echo "  git diff PKGBUILD .SRCINFO"
-echo "  git add PKGBUILD .SRCINFO"
-echo "  git commit -m 'Update to v${VERSION}'"
-echo "  git push AUR main"
